@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <servlet>
+        <servlet-name>Login</servlet-name>
+        <servlet-class>ControladoresServlets.Login</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletColaboraciones</servlet-name>
+        <servlet-class>ControladoresServlets.ServletColaboraciones</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletPropuesta</servlet-name>
+        <servlet-class>ControladoresServlets.ServletPropuesta</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Logout</servlet-name>
+        <servlet-class>ControladoresServlets.Logout</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Login</servlet-name>
+        <url-pattern></url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletColaboraciones</servlet-name>
+        <url-pattern>/Colaborar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletPropuesta</servlet-name>
+        <url-pattern>/Propuesta</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Logout</servlet-name>
+        <url-pattern>/Logout</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+</web-app>
