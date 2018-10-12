@@ -39,3 +39,11 @@ nbproject/private/private.properties
 *./nbproject/
 *./dist/
 *./private.properties
+*/build/*
+*.build
+*./build/
+*./build/*
+*.build/*
+/build/*
+./build/*
+./build/
