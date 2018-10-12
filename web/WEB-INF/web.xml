@@ -16,9 +16,13 @@
         <servlet-name>Logout</servlet-name>
         <servlet-class>ControladoresServlets.Logout</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ControlLogin</servlet-name>
+        <servlet-class>ControladoresServlets.ControlLogin</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
-        <url-pattern></url-pattern>
+        <url-pattern/>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ServletColaboraciones</servlet-name>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>Logout</servlet-name>
         <url-pattern>/Logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControlLogin</servlet-name>
+        <url-pattern>/ControlLogin</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
