@@ -5,14 +5,9 @@
  */
 package ControladoresServlets;
 
-import Logica.ContPropuesta;
-import Logica.ContUsuario;
-import Logica.dtPropuesta;
+import Logica.culturarteFabrica;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Collection;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author nicolasgutierrez
  */
-public class ServletPropuesta extends HttpServlet {
+public class ServletdeArranque extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,30 +33,9 @@ public class ServletPropuesta extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String propuesta=request.getParameter("titulo");
-            ContUsuario cu= ContUsuario.getInstance();
-            ContPropuesta cp = ContPropuesta.getInstance();
-            cp.propAutomaticas();
-            if(propuesta==null){
-                Collection<String> props= cu.listarpropuestasmenosingresadas("");
-                request.setAttribute("propuestas", props);
-                request.getRequestDispatcher("PRESENTACIONES/listadopropuestas.jsp").forward(request, response);
-            }else{  
-                try {
-                    dtPropuesta dtp = cu.infoPropuesta(propuesta);
-                    request.setAttribute("propuesta", dtp);
-                    Collection<String> colaboradores=dtp.detColaboradores();
-                    request.setAttribute("colaboradores", colaboradores);
-                    request.getRequestDispatcher("PRESENTACIONES/infopropuesta.jsp").
-					forward(request, response);
-                } catch (Exception ex) {
-                    Logger.getLogger(ServletPropuesta.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                    
-                
-                
-                
-            }
+            culturarteFabrica fabrica = culturarteFabrica.getInstance();
+            fabrica.cargarinicio();
+            response.sendRedirect("Login");
         }
     }
 

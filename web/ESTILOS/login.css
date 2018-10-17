@@ -1,0 +1,74 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Oct 12, 2018, 12:56:29 PM
+    Author     : nicolasgutierrez
+*/
+
+#home {
+    background-color: #D8D8D8;
+    display: table;
+    height: 100%;
+    position: relative;
+    width: 100%;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+
+.pintar {
+    color: #4e555b;
+}
+
+.error
+{
+	color: #4e555b;
+	display: none;
+	font-size: 12px;
+	margin-left: 6px;
+}
+
+body label {
+    display: inline-block;
+    height: 2em;
+    width: 80px;
+}
+
+body input {
+    margin-bottom: 10px;
+}
+
+body
+{
+   background: none repeat scroll 0 0 #C0C0C0;
+   font-family: tahoma;
+}
+
+#landing-text {
+    
+    text-align: center;
+    vertical-align: middle; 
+    color: #fff;
+}
+
+.formx
+{
+    background-attachment: scroll;
+    margin: 4em auto;
+    width: 500px;
+    padding: 3em;
+    position: relative;
+}
+
+.largito{
+     width: 300px;
+}
+
+.centra3 {
+    padding-top:200px;
+    padding-bottom: 200px;
+}

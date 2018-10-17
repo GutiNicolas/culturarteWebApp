@@ -5,6 +5,7 @@
  */
 package ControladoresServlets;
 
+import Logica.ContUsuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -32,15 +33,7 @@ public class ControlLogin extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ControlLogin</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ControlLogin at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+
         }
     }
 
@@ -70,7 +63,13 @@ public class ControlLogin extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        PrintWriter out = response.getWriter();
+        String nick= request.getParameter("nick");
+        ContUsuario cu=ContUsuario.getInstance();
+        if(cu.existeUsuario(nick)){
+        }else{
+            out.println("El usuario no existe");
+        }
     }
 
     /**

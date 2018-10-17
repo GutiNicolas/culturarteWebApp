@@ -1,0 +1,73 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Oct 17, 2018, 12:13:11 PM
+    Author     : nicolasgutierrez
+*/
+
+
+#home {
+    background-color: #202020;
+    display: table;
+    height: 100%;
+    position: relative;
+    width: 100%;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+
+.home {
+    background-color: #202020;
+    display: table;
+    height: 100%;
+    position: relative;
+    width: 100%;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+
+.container-fluid{
+    max-width: 900px;
+    
+}
+
+.centra3 {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.porqueria {
+    text-align: center;
+}
+
+a {
+    text-align: center;
+}
+
+.imgprop {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    max-height: 100px;
+    max-width: 100px;
+}
+
+.landing-text {
+    text-align: center;
+}    
+
+h4{
+    color: #fff;
+}
+
+p,h6{
+    color: #fff;
+}

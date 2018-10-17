@@ -5,12 +5,15 @@
  */
 package ControladoresServlets;
 
+import Logica.ContUsuario;
+import Logica.dtUsuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -32,15 +35,34 @@ public class Login extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Login</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Login at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            HttpSession session = request.getSession();
+            ContUsuario cU = ContUsuario.getInstance();
+            String usuario = request.getParameter("nick");
+            String password = request.getParameter("pass");
+            if(session.getAttribute("rol")==null){ 
+            if (usuario != null) {
+                dtUsuario dtu = cU.usuarioLoginApp(usuario);
+                if (dtu != null) {
+                    if (dtu.getPass().equals(password)) {
+                        session.setAttribute("nickusuario", dtu.getNickname());
+                        session.setAttribute("rol", dtu.getRol()); 
+                        response.sendRedirect("PRESENTACIONES/listadopropuestas.jsp");
+                           //request.getRequestDispatcher("Propuesta").forward(request, response);
+                       
+                    } else {//contrasenia erronea                  
+                        request.getRequestDispatcher("PRESENTACIONES/login.jsp?error=pm").forward(request, response);
+                    }
+
+                } else {  //no existe el usuario             
+                    request.getRequestDispatcher("PRESENTACIONES/login.jsp?error=nu").forward(request, response);
+                }
+            } else {             
+                request.getRequestDispatcher("PRESENTACIONES/login.jsp").forward(request, response);
+            }
+        }else{
+                response.sendRedirect("PRESENTACIONES/listadopropuestas.jsp");
+                //request.getRequestDispatcher("Propuesta").forward(request, response);
+                }
         }
     }
 
