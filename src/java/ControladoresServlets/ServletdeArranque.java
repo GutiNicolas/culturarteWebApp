@@ -6,8 +6,13 @@
 package ControladoresServlets;
 
 import Logica.culturarteFabrica;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.Iterator;
+import java.util.Properties;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -28,16 +33,93 @@ public class ServletdeArranque extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
+    ServletContext context = null;
+    private static Propiedades propIns = Propiedades.getInstance();
+    
+    @Override
+    public void init() throws ServletException {
+
+        super.init(); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
+     @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+    private Properties levantarProperties(String path) {
+        InputStream in = null;
+        Properties prop = new Properties();
+        System.out.println("levantarProperties inicio...");
+        String dirWsu = null, dirWsp = null, dirWsc = null;
+        String pathP = generaPathProperties(path);
+        try {
+
+            in = new FileInputStream(pathP + "configuracion/configuracionwebapp.properties");
+            prop.load(in);
+            dirWsu = "http://" + prop.getProperty("wsuip") + ":" + prop.getProperty("wsupuerto") + "/" + prop.getProperty("wsuname");
+            dirWsp = "http://" + prop.getProperty("wspip") + ":" + prop.getProperty("wsppuerto") + "/" + prop.getProperty("wspname");
+            dirWsc = "http://" + prop.getProperty("wscip") + ":" + prop.getProperty("wscpuerto") + "/" + prop.getProperty("wscname");
+            propIns.setWsU(dirWsu);
+            propIns.setWsP(dirWsp);
+            propIns.setWsC(dirWsc);
+            Iterator it = prop.keySet().iterator();
+            while (it.hasNext()) {
+                String key = (String) it.next();
+                System.out.println("Properties claves cargadas: ");
+                System.out.println(key);
+
+            }
+
+            System.out.println("carga finalizada");
+        } catch (Exception e) {
+            System.err.println("levantarProperties: " + e.getMessage());
+        }
+
+        return prop;
+    }
+    
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            culturarteFabrica fabrica = culturarteFabrica.getInstance();
-            fabrica.cargarinicio();
+            context = request.getSession().getServletContext();
+
+            System.out.println(context.getResource("").getPath() + " getResources");
+            //  System.out.println(context.getContextPath()+" getContextPath");
+            //  System.out.println(context.getResource("")+" getResource");
+            levantarProperties(context.getResource("").getPath());
+            
             response.sendRedirect("Login");
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
         }
+            
+        }
+    
+    private String generaPathProperties(String cadena) {
+        String path = "/";
+        try {
+            String[] subCadena = cadena.split("/");
+            for (int i = 1; i < 6; i++) {
+                path += subCadena[i] + "/";
+                System.out.println(subCadena[i]);
+                System.out.println(path);
+            }
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        return path;
     }
+    
+    
+    
+
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -73,9 +155,6 @@ public class ServletdeArranque extends HttpServlet {
      *
      * @return a String containing servlet description
      */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+    // </editor-fold>
 
 }

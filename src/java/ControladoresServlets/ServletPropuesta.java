@@ -10,19 +10,60 @@ import Logica.ContUsuario;
 import Logica.dtPropuesta;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import servicios.DtContieneArray;
+import servicios.DtPropuestaWeb;
+import servicios.ServicioContColabiracion;
+import servicios.ServicioContPropuesta;
+import servicios.ServicioContusuario;
+import servicios.WebServiceContColaboracion;
+import servicios.WebServiceContPropuesta;
+import servicios.WebServiceContUsusario;
 
 /**
  *
  * @author nicolasgutierrez
  */
 public class ServletPropuesta extends HttpServlet {
+    
+    
+    private static Propiedades prop = Propiedades.getInstance();
+    private String direccionWSU = prop.getWsU(), direccionWSP = prop.getWsP(), direccionWSC = prop.getWsC();
+    WebServiceContUsusario WSCUPort;//"http://localhost:8580/ServicioU"
+    WebServiceContPropuesta WSCPPort;//"http://localhost:8680/ServicioP"
+    WebServiceContColaboracion WSCCPort;//"http://localhost:8780/ServicioC"
+    
+    @Override
+    public void init(ServletConfig conf)
+            throws ServletException {
+        inicio();
+        super.init(conf);
+    }
+
+    private void inicio() {
+        try {
+            ServicioContusuario WSCU = new ServicioContusuario(new URL(direccionWSU));
+            WSCUPort = WSCU.getWebServiceContUsusarioPort();
+            ServicioContPropuesta WSCP = new ServicioContPropuesta(new URL(direccionWSP));
+            WSCPPort = WSCP.getWebServiceContPropuestaPort();
+            ServicioContColabiracion WSCC = new ServicioContColabiracion(new URL(direccionWSC));
+            WSCCPort = WSCC.getWebServiceContColaboracionPort();
+        } catch (MalformedURLException ex) {
+            System.err.println(ex);
+        }
+    }
+    
+    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,19 +80,24 @@ public class ServletPropuesta extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             String propuesta=request.getParameter("titulo");
-            ContUsuario cu= ContUsuario.getInstance();
-            ContPropuesta cp = ContPropuesta.getInstance();
-            cp.propAutomaticas();
+            
+            WSCPPort.propAutomaticas();
             if(propuesta==null){
-                Collection<String> props= cu.listarpropuestasmenosingresadas("");
+                DtContieneArray propCol = (DtContieneArray) WSCPPort.listarPropMenosIng(""); //cu.listarpropuestasmenosingresadas("");
+                Collection<String> props = (Collection) propCol.getMyarreglo();
                 request.setAttribute("propuestas", props);
                 request.getRequestDispatcher("PRESENTACIONES/listadopropuestas.jsp").forward(request, response);
             }else{  
                 try {
-                    dtPropuesta dtp = cu.infoPropuesta(propuesta);
+                    HttpSession session = request.getSession();
+                    DtPropuestaWeb dtp = WSCUPort.infoPropuesta(propuesta);  //cu.infoPropuesta(propuesta);
                     request.setAttribute("propuesta", dtp);
-                    Collection<String> colaboradores=dtp.detColaboradores();
+                    Collection<String> colaboradores=dtp.getColaboradores();
                     request.setAttribute("colaboradores", colaboradores);
+                    if (colaboradores.contains((String) session.getAttribute("nickusuario")) == false) { 
+                        request.setAttribute("podes", "ok");
+                    }
+                                
                     request.getRequestDispatcher("PRESENTACIONES/infopropuesta.jsp").
 					forward(request, response);
                 } catch (Exception ex) {
