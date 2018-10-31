@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://192.168.43.103:8580/ServicioU?wsdl" uri="src/conf/xml-resources/web-service-references/ServicioU/wsdl/192.168.43.103_8580/ServicioU.wsdl"/>
+    <system systemId="http://192.168.43.103:8580/ServicioU?xsd=1" uri="src/conf/xml-resources/web-service-references/ServicioU/wsdl/192.168.43.103_8580/ServicioU.xsd_1.xsd"/>
+    <system systemId="http://192.168.43.103:8680/ServicioP?wsdl" uri="src/conf/xml-resources/web-service-references/ServicioP/wsdl/192.168.43.103_8680/ServicioP.wsdl"/>
+    <system systemId="http://192.168.43.103:8680/ServicioP?xsd=1" uri="src/conf/xml-resources/web-service-references/ServicioP/wsdl/192.168.43.103_8680/ServicioP.xsd_1.xsd"/>
+    <system systemId="http://192.168.43.103:8780/ServicioC?wsdl" uri="src/conf/xml-resources/web-service-references/ServicioC/wsdl/192.168.43.103_8780/ServicioC.wsdl"/>
+    <system systemId="http://192.168.43.103:8780/ServicioC?xsd=1" uri="src/conf/xml-resources/web-service-references/ServicioC/wsdl/192.168.43.103_8780/ServicioC.xsd_1.xsd"/>
+</catalog>
