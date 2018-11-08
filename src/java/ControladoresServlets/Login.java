@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -85,7 +86,15 @@ public class Login extends HttpServlet {
                 if (dtu != null) {
                     if (dtu.getPass().equals(password)) {
                         session.setAttribute("nickusuario", dtu.getNickname());
-                        session.setAttribute("rol", dtu.getRol()); 
+                        session.setAttribute("rol", dtu.getRol());
+                        if(request.getParameter("rememberMe") != null){
+                            Cookie cookiename= new Cookie("nickusuario",dtu.getNickname());
+                            cookiename.setMaxAge(24*60*60);
+                            Cookie cookierol= new Cookie("rolusuario",dtu.getRol());
+                            cookierol.setMaxAge(24*60*60);
+                            response.addCookie(cookiename);
+                            response.addCookie(cookierol);
+                        }
                         response.sendRedirect("PRESENTACIONES/listadopropuestas.jsp");
                            //request.getRequestDispatcher("Propuesta").forward(request, response);
                        

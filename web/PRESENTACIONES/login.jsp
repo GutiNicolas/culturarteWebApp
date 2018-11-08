@@ -9,6 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Log In | CultuRarte App</title>
         <% 
             String error;
@@ -46,7 +47,7 @@
                     <input type="password" class="largito" id="pass" name="pass" placeholder="Password"/>
                     <span id="error_pass" class="error"><br>Debes ingresar la clave</span>                  
                     <br/>
-                    <input type="checkbox" name="rememberMe" value="rememberMe"/><span class="pintar">  Recordarme</span>
+                    <input type="checkbox" name="rememberMe" id="rememberMe" value="rememberMe"/><span class="pintar">  Recordarme</span>
                     <br/>
                     <input class="btn btn-primary largito" type="submit" value="Login" id="bttacept"/>  
                     <br>

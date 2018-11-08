@@ -14,9 +14,11 @@ import java.util.Iterator;
 import java.util.Properties;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -93,6 +95,20 @@ public class ServletdeArranque extends HttpServlet {
             //  System.out.println(context.getContextPath()+" getContextPath");
             //  System.out.println(context.getResource("")+" getResource");
             levantarProperties(context.getResource("").getPath());
+            HttpSession session=request.getSession();
+            
+            Cookie[] cookies = request.getCookies();
+        
+
+        for(int loopIndex = 0; loopIndex < cookies.length; loopIndex++) { 
+            Cookie cookie1 = cookies[loopIndex];
+            if (cookie1.getName().equals("nickusuario")) {
+                session.setAttribute("nickusuario", cookie1.getValue());
+            }
+            if (cookie1.getName().equals("rolusuario")) {
+                session.setAttribute("rol", cookie1.getValue());
+            }
+        } 
             
             response.sendRedirect("Login");
         } catch (IOException ex) {

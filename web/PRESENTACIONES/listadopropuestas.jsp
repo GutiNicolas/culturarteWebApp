@@ -5,12 +5,12 @@
 --%>
 
 <%@page import="java.util.Collection"%>
-<%@page import="Logica.dtPropuesta"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <%if (request.getAttribute("propuestas") != null) {%>
         <%@include file="/PRESENTACIONES/menu.jsp"%>
         <link rel="stylesheet" type="text/css" href="ESTILOS/listadopropuestas.css" />
@@ -36,7 +36,7 @@
                         {
                         %>
 
-                        <div class="col-md-3 col-sm-4 col-xs-12 single_portfolio_text" style="min-width: 50px">
+                        <div class="col-md-2 col-sm-2 col-xs-2 single_portfolio_text" style="min-width: 50px">
                             <img src="IMAGENES/defaultprop.jpg" href="?titulo=<%=prop%>" alt="" />
                             <div class="portfolio_images_overlay text-center" href="?titulo=<%=prop%>">
                                 <h6 class="clrd-font" href="?titulo=<%=prop%>"><%= prop%></h6>
