@@ -5,7 +5,8 @@
  */
 package ControladoresServlets;
 
-import Logica.culturarteFabrica;
+
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -57,7 +58,7 @@ public class ServletdeArranque extends HttpServlet {
         String pathP = generaPathProperties(path);
         try {
 
-            in = new FileInputStream(pathP + "configuracion/configuracionwebapp.properties");
+            in = new FileInputStream(dameArchivo(path));
             prop.load(in);
             dirWsu = "http://" + prop.getProperty("wsuip") + ":" + prop.getProperty("wsupuerto") + "/" + prop.getProperty("wsuname");
             dirWsp = "http://" + prop.getProperty("wspip") + ":" + prop.getProperty("wsppuerto") + "/" + prop.getProperty("wspname");
@@ -101,11 +102,12 @@ public class ServletdeArranque extends HttpServlet {
             
         }
     
-    private String generaPathProperties(String cadena) {
+      private String generaPathProperties(String cadena) {
         String path = "/";
         try {
             String[] subCadena = cadena.split("/");
-            for (int i = 1; i < 6; i++) {
+            int largo = subCadena.length;
+            for (int i = 1; i < subCadena.length - 1; i++) {
                 path += subCadena[i] + "/";
                 System.out.println(subCadena[i]);
                 System.out.println(path);
@@ -114,6 +116,32 @@ public class ServletdeArranque extends HttpServlet {
             System.err.println(e.getMessage());
         }
         return path;
+    }
+
+    private File dameArchivo(String path) {
+        String ruta = generaPathProperties(path);
+        File retorno = caminar(new File(path));
+        if (retorno != null) {
+            return retorno;
+        }
+        return dameArchivo(ruta);
+    }
+
+    private File caminar(File dir) {
+        File listFile[] = dir.listFiles();
+        if (listFile != null && listFile.length > 0) {
+            for (int i = 0; i < listFile.length; i++) {
+                if (listFile[i].isDirectory()) {
+                    caminar(listFile[i]);
+                }
+                if (listFile[i].isFile()) {
+                    if (listFile[i].getName().equals("configuracionweb.properties")) {
+                        return (File) listFile[i];
+                    }
+                }
+            }
+        }
+        return null;
     }
     
     

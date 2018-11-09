@@ -5,9 +5,7 @@
  */
 package ControladoresServlets;
 
-import Logica.ContPropuesta;
-import Logica.ContUsuario;
-import Logica.dtPropuesta;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.MalformedURLException;
