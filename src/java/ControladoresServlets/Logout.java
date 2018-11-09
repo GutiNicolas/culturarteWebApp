@@ -8,9 +8,11 @@ package ControladoresServlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -32,15 +34,24 @@ public class Logout extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Logout</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Logout at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            HttpSession session = request.getSession();
+            if (session.getAttribute("rol") != null) {
+
+                session.removeAttribute("nickusuario");
+                session.removeAttribute("rol");
+                Cookie cookie = new Cookie("nickusuario", "");
+                cookie.setMaxAge(0);
+                response.addCookie(cookie);
+                Cookie cookie2 = new Cookie("rolusuario", "");
+                cookie2.setMaxAge(0);
+                response.addCookie(cookie2);
+                
+                
+                response.sendRedirect("PRESENTACIONES/login.jsp");
+                
+            } else {
+                response.sendRedirect("PRESENTACIONES/listadopropuestas.jsp");
+            }
         }
     }
 

@@ -6,12 +6,12 @@
 
 <%@page import="servicios.DtPropuestaWeb"%>
 <%@page import="java.util.Collection"%>
-<%@page import="Logica.dtPropuesta"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">       
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <%@include file="/PRESENTACIONES/menu.jsp"%>
         <link rel="stylesheet" type="text/css" href="ESTILOS/infopropuesta.css" />
         <title>cultuRarte App</title>
